@@ -1,3 +1,20 @@
+from flask import Flask, escape, request, jsonify, render_template, Response
+from selenium import webdriver
+from selenium.common.exceptions import TimeoutException
+from selenium.webdriver.support.ui import WebDriverWait 
+from selenium.webdriver.support import expected_conditions as EC 
+from selenium.webdriver.common.by import By
+import schedule
+from datetime import datetime,date
+import time
+# import pandas as pd
+from flask_cors import CORS
+from pymongo import MongoClient
+from flask_pymongo import PyMongo
+import json 
+from bson import ObjectId
+from collections import Iterable
+from bson import json_util
 import pyrebase
 
 config = {
@@ -95,26 +112,46 @@ def get_routes(source,dest):
     
     return outputList;
 
+city1 = {
+  "source" : "moratuwa",
+  "destination" : "kottawa"
+}
+city2 = {
+  "source" : "malabe",
+  "destination" : "kaduwela"
+}
+city3 = {
+  "source" : "dehiwala",
+  "destination" : "maharagama"
+}
+
+myfamily = {
+  "city1" : city1,
+  "city2" : city2,
+  "city3" : city3
+}
+
 @app.route('/')
 def script():
-    source = request.args.get('source')
-    destination = request.args.get('dest')
-    try:
-        routes = get_routes(source, destination)
-    except:
-        print('error')
+    for i in range (1,len(myfamily)+1):
+        x=myfamily.get("city"+str(i)).get("source")
+        y=myfamily.get("city"+str(i)).get("destination")
+        source=x
+        destination=y
+        print (source)
+        print(destination)
+        try:
+            routes = get_routes(source, destination)
+        except:
+            print('error')
 
-    schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    # schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
 
     print(type(routes))
     return jsonify(routes)
-
-@app.route('/home')
-def home():
-    return render_template('index.html')
 
 if __name__=='__main__':
     app.run(debug=True)
