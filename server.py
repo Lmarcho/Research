@@ -159,7 +159,7 @@ def script():
     except:
         print('error')
 
-    schedule.every().minute.at(":45").do(lambda: get_routes(source, destination))
+    schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
     while True:
         schedule.run_pending()
         time.sleep(1)
