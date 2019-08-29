@@ -4,7 +4,7 @@ from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait 
 from selenium.webdriver.support import expected_conditions as EC 
 from selenium.webdriver.common.by import By
-# import schedule
+import schedule
 from datetime import datetime,date
 import time
 # import pandas as pd
@@ -159,10 +159,10 @@ def script():
     except:
         print('error')
 
-    # schedule.every(1).minutes.do(lambda: get_routes(source, destination))
-    # while True:
-    #     schedule.run_pending()
-    #     time.sleep(1)
+    schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
+    while True:
+        schedule.run_pending()
+        time.sleep(1)
 
     # return Response(json.dumps(routes), mimetype='application/json')
     print(type(routes))
