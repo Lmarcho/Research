@@ -24,7 +24,7 @@ function onSubmit() {
           <h5 class="card-title">Route ${x + 1}</h5>
           <p class="card-text">
             <ul class="list-group">
-              <li class="list-group-item">Time: ${data[x].time}</li>
+              <li class="list-group-item">Duration: ${data[x].duration}</li>
               <li class="list-group-item">Distance: ${data[x].distance}</li>
               <li class="list-group-item">Route: ${data[x].route}</li>
               <!-- <li class="list-group-item">Description: ${data[x].description}</li>-->
