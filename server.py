@@ -132,7 +132,7 @@ def get_routes(source,dest):
                 "destination": dest,
                 "day": today.strftime("%A"),
                 "current time": today.strftime("%X"),
-                "time": timeOutput1,
+                "duration": timeOutput1,
                 "distance": disOutput1,
                 "route": routeOutput1,
                 # "description": descrOutput1

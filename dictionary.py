@@ -11,9 +11,11 @@ city3 = {
 "destination" : "maharagama"
 }
 
-cities = {
+cities_dic = {
 "city1" : city1,
 "city2" : city2,
 "city3" : city3,
-
 }
+
+cities_list=["colombo", "borella", "rajagiriya", "battaramulla", "koswatta", "malabe", "SLIIT","kaduwela"]
+

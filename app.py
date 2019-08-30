@@ -16,7 +16,7 @@ from bson import ObjectId
 from collections import Iterable
 from bson import json_util
 import pyrebase
-from dictionary import cities
+# from dictionary import cities_dic
 
 config = {
     "apiKey": "AIzaSyA2CU0xOpT1kXXSKEDeuLc8Rf604kCiWj8",
@@ -99,7 +99,7 @@ def get_routes(source,dest):
                 "destination": dest,
                 "day": today.strftime("%A"),
                 "current time": today.strftime("%X"),
-                "time": timeOutput1,
+                "duration": timeOutput1,
                 "distance": disOutput1,
                 "route": routeOutput1,
             })        
@@ -113,19 +113,31 @@ def get_routes(source,dest):
     driver.close()
     
     return outputList;
+cities_list=["colombo", "borella", "rajagiriya", "battaramulla", "koswatta", "malabe", "SLIIT","kaduwela"]
 
 @app.route('/')
 def script():
-    for i in range (1,len(cities)+1):
-        source=cities.get("city"+str(i)).get("source")
-        destination=cities.get("city"+str(i)).get("destination")
-        print (source)
-        print(destination)
-        try:
-            routes = get_routes(source, destination)
-            time.sleep(30)
-        except:
-            print('error')
+    # for i in range (1,len(cities_dic)+1):
+    #     source=cities_dic.get("city"+str(i)).get("source")
+    #     destination=cities_dic.get("city"+str(i)).get("destination")
+    #     print (source)
+    #     print(destination)
+    #     try:
+    #         routes = get_routes(source, destination)
+    #         time.sleep(30)
+    #     except:
+    #         print('error')
+    for x in range(0,len(cities_list)):
+      for y in range(0,len(cities_list)):
+        if x!=y:
+            print(cities_list[x]+" to "+cities_list[y])
+            source=cities_list[x]
+            destination=cities_list[y]
+            try:
+                routes = get_routes(source, destination)
+                time.sleep(30)
+            except:
+                print('error')
 
     schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
     while True:
