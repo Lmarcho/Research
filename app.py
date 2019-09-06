@@ -117,16 +117,6 @@ cities_list=["colombo", "borella", "rajagiriya", "battaramulla", "koswatta", "ma
 
 @app.route('/')
 def script():
-    # for i in range (1,len(cities_dic)+1):
-    #     source=cities_dic.get("city"+str(i)).get("source")
-    #     destination=cities_dic.get("city"+str(i)).get("destination")
-    #     print (source)
-    #     print(destination)
-    #     try:
-    #         routes = get_routes(source, destination)
-    #         time.sleep(30)
-    #     except:
-    #         print('error')
     for x in range(0,len(cities_list)):
       for y in range(0,len(cities_list)):
         if x!=y:
@@ -135,14 +125,14 @@ def script():
             destination=cities_list[y]
             try:
                 routes = get_routes(source, destination)
-                time.sleep(30)
+                time.sleep(10)
             except:
                 print('error')
 
-    schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
+    schedule.every().hour.at(":00").do(lambda: get_routes(source, destination))and schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
     while True:
         schedule.run_pending()
-        time.sleep(20)
+        time.sleep(1)
     print(type(routes))
     return jsonify(routes)
 
