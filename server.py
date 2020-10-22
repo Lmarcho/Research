@@ -140,7 +140,7 @@ def get_routes(source,dest):
 
         # database.traffic_data.insert(outputList)
         # mongo.db.traffic_data.insert(outputList)
-        db.child("traffic").child(source+" to "+dest).child(day).child(hour+":"+minute).push(outputList)
+        db.child("trafficTestData").child(source+" to "+dest).child(day).child(hour+":"+minute).push(outputList)
 
     except TimeoutException:
         print("Timed out waiting for page to load")
@@ -159,10 +159,10 @@ def script():
     except:
         print('error')
 
-    schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
-    while True:
-        schedule.run_pending()
-        time.sleep(1)
+    # schedule.every().hour.at(":30").do(lambda: get_routes(source, destination))
+    # while True:
+    #     schedule.run_pending()
+    #     time.sleep(1)
 
     # return Response(json.dumps(routes), mimetype='application/json')
     print(type(routes))
